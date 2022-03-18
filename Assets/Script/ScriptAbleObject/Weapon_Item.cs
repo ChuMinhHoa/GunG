@@ -7,7 +7,6 @@ public class Weapon_Item : ScriptableObject
 {
     public Sprite icon;
     public float damage;
-    public float damageShield;
     public WeaponType type;
     public int weaponIndex;
 }

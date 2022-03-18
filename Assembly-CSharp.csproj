@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{DDDCB0EC-E2C9-9312-4C49-5AB6798E5497}</ProjectGuid>
+    <ProjectGuid>{6CBADCBC-5F85-5A30-117A-B6C1F0EB7A86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -58,15 +58,17 @@
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Actor.cs" />
     <Compile Include="Assets\Script\Item\AmmoBox.cs" />
-    <Compile Include="Assets\CurveAnimation.cs" />
-    <Compile Include="Assets\AnimationCurveData.cs" />
+    <Compile Include="Assets\Script\Curve\CurveAnimation.cs" />
+    <Compile Include="Assets\Script\AnimationCurveData.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
     <Compile Include="Assets\Script\Bullet\Bullet.cs" />
     <Compile Include="Assets\Script\ScriptAbleObject\Weapon_Item.cs" />
     <Compile Include="Assets\Script\Weapon\Gun.cs" />
+    <Compile Include="Assets\Script\UI\BarController.cs" />
     <Compile Include="Assets\Script\CameraCinemachineController.cs" />
     <Compile Include="Assets\Script\Catch.cs" />
-    <Compile Include="Assets\BarController.cs" />
+    <Compile Include="Assets\Script\Weapon\Grenage.cs" />
+    <Compile Include="Assets\Script\Bullet\GranadeBoom.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

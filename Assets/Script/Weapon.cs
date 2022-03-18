@@ -56,5 +56,6 @@ public class Weapon : MonoBehaviour
 public enum WeaponType { 
     None,
     Melee,
-    Gun
+    Gun,
+    Grenade
 }
