@@ -13,6 +13,9 @@ public class GranadeBoom : Bullet
     [Range(0,360)]
     public float rangeRotage;
 
+    public Animator myanim;
+    bool boom;
+
     public override void Start()
     {
         curveAnimation = CurveAnimation.instance;
@@ -24,9 +27,16 @@ public class GranadeBoom : Bullet
         myBody.velocity = transform.right * speed * animationCurve.Evaluate(timeScale);
         angle += rangeRotage * animationCurve.Evaluate(timeScale);
         spriteTransform.eulerAngles = new Vector3(0, 0, angle);
-        if (timeScale >= 3f)
+        if (timeScale >= 3f && !boom)
         {
-            Destroy(gameObject);
+            boom = true;
+            myanim.SetTrigger("Boom");
+            Destroy(gameObject, .25f);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        speed = 0;
     }
 }

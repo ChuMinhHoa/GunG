@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
-   
+
     [Header("---------PROPERTY--------")]
     [Space(40)]
     [Header("=========ACTOR==========")]
+    public string ActorName;
     public Property property;
 
     [Header("------WEAPON CONTROL-----")]
@@ -29,7 +30,7 @@ public class Actor : MonoBehaviour
     float timeReUpHp;
     bool shotted;
     float curveScale = 0f;
-    public BarController hp_Bar;
+    //public BarController hp_Bar;
 
     public virtual void Awake() {
         myBody = GetComponent<Rigidbody2D>();
@@ -37,11 +38,11 @@ public class Actor : MonoBehaviour
     }
 
     public virtual void Start() {
-        if (hp_Bar!=null)
-        {
-            hp_Bar.SetMaxValue(property.hpMax);
-            hp_Bar.ChangeValue(property.hp);
-        }
+        //if (hp_Bar!=null)
+        //{
+        //    hp_Bar.SetMaxValue(property.hpMax);
+        //    hp_Bar.ChangeValue(property.hp);
+        //}
     }
 
     public virtual void FixedUpdate()
@@ -57,11 +58,11 @@ public class Actor : MonoBehaviour
         }
     }
 
-    public void ChangeHp(float damage) {
+    public virtual void ChangeHp(float damage) {
         property.hp += damage;
         if (property.hp > property.hpMax)
             property.hp = property.hpMax;
-        hp_Bar.ChangeValue(property.hp);
+        //hp_Bar.ChangeValue(property.hp);
     }
 
     public void ChangeStamina(float sta)

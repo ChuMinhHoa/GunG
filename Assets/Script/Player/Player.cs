@@ -43,6 +43,12 @@ public class Player : Actor
             }
         }
 
+        if (currentWeaponType == WeaponType.Grenade)
+        {
+            if (Input.GetMouseButtonDown(0))
+                currentWeapon.Shot(angle, 7);
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             Catch();

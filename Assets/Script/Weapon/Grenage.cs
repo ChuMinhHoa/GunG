@@ -12,7 +12,9 @@ public class Grenage : Weapon
 
     public override bool Shot(float angle, int layerBullet)
     {
-        Instantiate(GranadePrefab, transform.position, Quaternion.identity);
+        GameObject granadeGameObject = Instantiate(GranadePrefab, transform.position, Quaternion.identity);
+        granadeGameObject.transform.eulerAngles = new Vector3(0, 0, angle);
+        Destroy(gameObject);
         return true;
     }
 }
