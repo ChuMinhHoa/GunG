@@ -30,7 +30,6 @@ public class Actor : MonoBehaviour
     float timeReUpHp;
     bool shotted;
     float curveScale = 0f;
-    //public BarController hp_Bar;
 
     public virtual void Awake() {
         myBody = GetComponent<Rigidbody2D>();
@@ -38,11 +37,7 @@ public class Actor : MonoBehaviour
     }
 
     public virtual void Start() {
-        //if (hp_Bar!=null)
-        //{
-        //    hp_Bar.SetMaxValue(property.hpMax);
-        //    hp_Bar.ChangeValue(property.hp);
-        //}
+        
     }
 
     public virtual void FixedUpdate()
@@ -53,16 +48,15 @@ public class Actor : MonoBehaviour
             if (timeReUpHp <= 0f)
             {
                 curveScale += Time.deltaTime;
-                ChangeHp(recovery_Ability * CurveAnimation.instance.list_Anim_Curves[0].animCurve.Evaluate(curveScale));
+                ChangeHp(recovery_Ability * CurveAnimation.instance.list_Anim_Curves[0].animCurve.Evaluate(curveScale), false);
             }
         }
     }
 
-    public virtual void ChangeHp(float damage) {
+    public virtual void ChangeHp(float damage, bool showPro) {
         property.hp += damage;
         if (property.hp > property.hpMax)
             property.hp = property.hpMax;
-        //hp_Bar.ChangeValue(property.hp);
     }
 
     public void ChangeStamina(float sta)
@@ -70,11 +64,11 @@ public class Actor : MonoBehaviour
         property.stamina += sta;
     }
 
-    public void ChangeShield(float value) {
+    public virtual void ChangeShield(float value, bool showPro) {
         
         if (property.shield <=0)
         {
-            ChangeHp(value);
+            ChangeHp(value, true);
             return;
         }
         property.shield += value;
@@ -99,7 +93,7 @@ public class Actor : MonoBehaviour
     {
         if (listLayerDamaged.IndexOf(collision.gameObject.layer) != -1)
         {
-            ChangeShield(-collision.gameObject.GetComponent<Bullet>().damage);
+            ChangeShield(-collision.gameObject.GetComponent<Bullet>().damage, true);
             shotted = true;
             if (property.hp < property.hpMax)
                 timeReUpHp = timeReUpHpSetting;
@@ -124,4 +118,5 @@ public class Property {
     public float stamina;
     public float speed;
     public float shield;
+    public float shieldMax;
 }

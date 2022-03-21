@@ -14,6 +14,7 @@ public class UI_BarManager : MonoBehaviour
     }
     public void AddBarController(UI_BarController controller) {
         list_BarControllers.Add(controller);
+        controller.OnClose();
     }
     public UI_BarController GetBarController(BarName barName) {
         for (int i = 0; i < list_BarControllers.Count; i++)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BarName { E_Healthbar, E_StaminaBar, P_Healthbar}
+public enum BarName { E_Healthbar, E_ShieldBar, P_Healthbar}
 public class UI_BarController : MonoBehaviour
 {
     public float current_Value;
