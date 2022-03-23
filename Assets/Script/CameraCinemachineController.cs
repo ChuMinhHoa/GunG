@@ -27,6 +27,7 @@ public class CameraCinemachineController : MonoBehaviour
 
     public void CameraShake(float intensity) {
         cinemachineBMP.m_AmplitudeGain = intensity;
+        StopAllCoroutines();
         StartCoroutine(ResetCameraShake());
     }
 

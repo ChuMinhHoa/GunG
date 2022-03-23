@@ -65,13 +65,14 @@ public class Actor : MonoBehaviour
     }
 
     public virtual void ChangeShield(float value, bool showPro) {
-        
+
+        property.shield += value;
         if (property.shield <=0)
         {
-            ChangeHp(value, true);
+            property.shield = 0;
+            ChangeHp(value-property.shield, true);
             return;
         }
-        property.shield += value;
     }
 
     public virtual void ChangeWeapon(Weapon weapon) {
@@ -93,13 +94,15 @@ public class Actor : MonoBehaviour
     {
         if (listLayerDamaged.IndexOf(collision.gameObject.layer) != -1)
         {
-            ChangeShield(-collision.gameObject.GetComponent<Bullet>().damage, true);
+            Bullet e_Bullet = collision.gameObject.GetComponent<Bullet>();
+            ChangeShield(-e_Bullet.damage, true);
             shotted = true;
             if (property.hp < property.hpMax)
                 timeReUpHp = timeReUpHpSetting;
             StopAllCoroutines();
             StartCoroutine(ResetShotted());
-            Destroy(collision.gameObject);
+            if (e_Bullet.can_Destroy)
+                Destroy(collision.gameObject);
         }
     }
 

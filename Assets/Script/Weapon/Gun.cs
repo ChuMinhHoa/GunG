@@ -55,7 +55,7 @@ public class Gun : Weapon
         bulletCount--;
         created.layer = layerBullet;
         Bullet bulletCreated = created.GetComponent<Bullet>();
-        bulletCreated.damage = damage;
+        bulletCreated.myGun = this;
         timeResetshot = timeResetshotSetting;
         if (bulletCount <= 0)
         {
@@ -71,7 +71,7 @@ public class Gun : Weapon
         bulletCount--;
         created.layer = layerBullet;
         Bullet bulletCreated = created.GetComponent<Bullet>();
-        bulletCreated.damage = damage;
+        bulletCreated.myGun = this;
         timeResetshot = timeResetshotSetting;
         if (bulletCount <= 0)
         {

@@ -46,7 +46,7 @@ public class Player : Actor
         if (currentWeaponType == WeaponType.Grenade)
         {
             if (Input.GetMouseButtonDown(0))
-                currentWeapon.Shot(angle, 7);
+                currentWeapon.Shot(angle, 13);
         }
 
         if (Input.GetMouseButtonDown(1))

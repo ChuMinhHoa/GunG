@@ -15,12 +15,14 @@ public class GranadeBoom : Bullet
 
     public Animator myanim;
     bool boom;
+    public float inSensity;
 
     public override void Start()
     {
         curveAnimation = CurveAnimation.instance;
         animationCurve = curveAnimation.list_Anim_Curves[1].animCurve;
     }
+    public override void OnInit(){}
     public override void FixedUpdate()
     {
         timeScale += Time.deltaTime;
@@ -30,7 +32,9 @@ public class GranadeBoom : Bullet
         if (timeScale >= 3f && !boom)
         {
             boom = true;
+            spriteTransform.eulerAngles = new Vector3(0, 0, 0);
             myanim.SetTrigger("Boom");
+            CameraCinemachineController.instance.CameraShake(inSensity);
             Destroy(gameObject, .25f);
         }
     }

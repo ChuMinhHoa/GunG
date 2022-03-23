@@ -67,9 +67,11 @@ MonoBehaviour:
   timeLife: 2
   myGun: {fileID: 0}
   damage: 30
+  can_Destroy: 0
   spriteTransform: {fileID: 8472048543513375104}
   rangeRotage: 120
   myanim: {fileID: 1168837958}
+  inSensity: 30
 --- !u!50 &1958974804178685374
 Rigidbody2D:
   serializedVersion: 4
@@ -86,7 +88,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 0757ec0a52e2489488b16347154931c7, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -103,6 +105,7 @@ GameObject:
   - component: {fileID: 344356473130096939}
   - component: {fileID: 1168837958}
   - component: {fileID: 329196348}
+  - component: {fileID: 4747731550069609443}
   m_Layer: 13
   m_Name: Sprite
   m_TagString: Untagged
@@ -163,7 +166,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -7676219313036738927, guid: c64f6a35e09efc04eaa7a94b4cbbe1ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -210,3 +213,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.285
+--- !u!114 &4747731550069609443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219257679077534627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762e2dda4019e3d409e2f88e15f71518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  myBody: {fileID: 0}
+  timeLife: 0
+  myGun: {fileID: 0}
+  damage: 250
+  can_Destroy: 0

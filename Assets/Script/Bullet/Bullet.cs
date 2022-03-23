@@ -11,6 +11,8 @@ public class Bullet : MonoBehaviour
     public Gun myGun;
     public float damage;
 
+    public bool can_Destroy;
+
     public virtual void Awake()
     {
         myBody = GetComponent<Rigidbody2D>();
@@ -18,12 +20,21 @@ public class Bullet : MonoBehaviour
 
     public virtual void Start()
     {
+        OnInit();
+        if (timeLife == 0)
+            return;
         Destroy(gameObject, timeLife);
+    }
+
+    public virtual void OnInit() {
+        if (myGun!=null)
+            damage = myGun.damage;
     }
 
 
     public virtual void FixedUpdate()
     {
-        myBody.velocity = transform.right * speed;
+        if (myGun!=null)
+            myBody.velocity = transform.right * speed;
     }
 }

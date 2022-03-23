@@ -53,15 +53,19 @@
     <UnityVersion>2020.3.20f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\UI\UI_BarManager.cs" />
     <Compile Include="Assets\Script\Weapon\Grenage.cs" />
     <Compile Include="Assets\Script\Weapon.cs" />
     <Compile Include="Assets\Script\Bullet\BulletShortGun.cs" />
     <Compile Include="Assets\Script\ScriptUI\Item\Item.cs" />
+    <Compile Include="Assets\Script\UI\UI_Canvas.cs" />
+    <Compile Include="Assets\Script\UI\UI_EnemyManager.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Actor.cs" />
     <Compile Include="Assets\Script\Item\AmmoBox.cs" />
     <Compile Include="Assets\Script\ScriptUI\UI\StorePage.cs" />
     <Compile Include="Assets\NPC.cs" />
+    <Compile Include="Assets\Script\UI\UI_BarController.cs" />
     <Compile Include="Assets\Script\Curve\CurveAnimation.cs" />
     <Compile Include="Assets\DontDestroyThis.cs" />
     <Compile Include="Assets\Script\ScriptUI\UI\SlotObj\SlotUI.cs" />
@@ -70,6 +74,7 @@
     <Compile Include="Assets\Script\ScriptUI\UI\TabGroup.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
     <Compile Include="Assets\Script\Bullet\Bullet.cs" />
+    <Compile Include="Assets\Script\UI\UI_Manager.cs" />
     <Compile Include="Assets\Script\ScriptUI\UI\SlotObj\SlotStore.cs" />
     <Compile Include="Assets\Script\ScriptUI\UI\Input\InputFieldCl.cs" />
     <Compile Include="Assets\Script\ScriptUI\Manager\BagManager.cs" />
@@ -81,11 +86,8 @@
     <Compile Include="Assets\Script\ScriptUI\Manager\BudgetManager.cs" />
     <Compile Include="Assets\Script\Catch.cs" />
     <Compile Include="Assets\Script\ScriptUI\UI\SlotObj\SlotBag.cs" />
-    <Compile Include="Assets\Script\UI\UI_Manager.cs" />
-    <Compile Include="Assets\Script\UI\UI_Canvas.cs" />
-    <Compile Include="Assets\Script\UI\UI_BarManager.cs" />
-    <Compile Include="Assets\Script\UI\UI_BarController.cs" />
-    <Compile Include="Assets\Script\UI\UI_EnemyManager.cs" />
+    <Compile Include="Assets\Shield_Item.cs" />
+    <Compile Include="Assets\PropertyType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

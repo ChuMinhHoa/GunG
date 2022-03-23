@@ -114,8 +114,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
+  myBody: {fileID: 0}
   timeLife: 0.5
   myGun: {fileID: 0}
+  damage: 0
+  layerIndexDestroy: 
+  can_Destroy: 1
 --- !u!50 &547417223
 Rigidbody2D:
   serializedVersion: 4
