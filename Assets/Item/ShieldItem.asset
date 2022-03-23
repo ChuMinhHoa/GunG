@@ -16,3 +16,4 @@ MonoBehaviour:
   name: ShieldItem
   icon: {fileID: 4773514653529381359, guid: c64f6a35e09efc04eaa7a94b4cbbe1ce, type: 3}
   price: 300
+  propertyChange: 25

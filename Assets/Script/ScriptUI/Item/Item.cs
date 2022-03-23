@@ -9,4 +9,5 @@ public class Item : ScriptableObject
     public string name;
     public Sprite icon;
     public int price;
+    public float propertyChange;
 }

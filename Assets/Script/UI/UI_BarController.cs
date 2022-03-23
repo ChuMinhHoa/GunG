@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BarName { E_Healthbar, E_ShieldBar, P_Healthbar}
+public enum BarName { E_Healthbar, E_ShieldBar, P_Healthbar, P_ShieldBar}
 public class UI_BarController : MonoBehaviour
 {
     public float current_Value;
@@ -11,6 +11,7 @@ public class UI_BarController : MonoBehaviour
     public Image fillBar;
     public BarName barName;
     UI_BarManager uI_BarManager;
+    public bool isClose;
 
     public virtual void Start() {
         uI_BarManager = UI_BarManager.instance;
@@ -20,7 +21,7 @@ public class UI_BarController : MonoBehaviour
         current_Value = _currentValue;
         max_Value = _maxValue;
         OnChangeValue(1,1);
-        uI_BarManager.AddBarController(this);
+        uI_BarManager.AddBarController(this, isClose);
     }
     public virtual void OnOpen() {
         gameObject.SetActive(true);

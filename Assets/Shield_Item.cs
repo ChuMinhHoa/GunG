@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shield_Item : MonoBehaviour
+public class Shield_Item : ItemBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnUse()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.OnUse();
+        myActor.ChangeShield(itemDataAsset.propertyChange, true);
     }
 }

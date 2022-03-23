@@ -12,9 +12,9 @@ public class UI_BarManager : MonoBehaviour
             Destroy(gameObject);
         else instance = this;
     }
-    public void AddBarController(UI_BarController controller) {
+    public void AddBarController(UI_BarController controller, bool isClose) {
         list_BarControllers.Add(controller);
-        controller.OnClose();
+        if (isClose) controller.OnClose();
     }
     public UI_BarController GetBarController(BarName barName) {
         for (int i = 0; i < list_BarControllers.Count; i++)

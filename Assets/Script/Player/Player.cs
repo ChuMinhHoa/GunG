@@ -20,42 +20,82 @@ public class Player : Actor
     public List<KeyCode> numberKeys;
 
 
+    [Header("---------------Item----------")]
+    [Space(20)]
+    public List<ItemBase> items;
+
+    public override void Start()
+    {
+        base.Start();
+        Oninit();
+    }
     // Update is called once per frame
     void Update()
     {
         InputHandle();
         InputKeyHandle();
     }
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        Move();
+        Rotage();
+    }
 
-    void InputHandle() {
+    #region=================Input Hanlde=======================
+    void InputHandle()
+    {
+        
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
-        if (currentWeaponType == WeaponType.Gun)
+        if (!nowUsingItem)
         {
-            gun = currentWeapon.GetComponent<Gun>();
-            if (gun.type == GunType.Rife)
+            if (currentWeaponType == WeaponType.Gun)
             {
-                RifleShot();
+                gun = currentWeapon.GetComponent<Gun>();
+                if (gun.type == GunType.Rife)
+                {
+                    RifleShot();
+                }
+                else
+                {
+                    PistolAndShortGunShot();
+                }
             }
-            else {
-                PistolAndShortGunShot();
+
+            if (currentWeaponType == WeaponType.Grenade)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    currentWeapon.Shot(angle, 13);
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                Catch();
             }
         }
+        
 
-        if (currentWeaponType == WeaponType.Grenade)
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            InceaseItemIndex();
+        }
+        if (nowUsingItem)
         {
             if (Input.GetMouseButtonDown(0))
-                currentWeapon.Shot(angle, 13);
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Catch();
+            {
+                nowUsingItem = false;
+                UsingItem(items[currentItemIndex]);
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                nowUsingItem = false;
+            }
         }
     }
 
-    void InputKeyHandle() {
+    void InputKeyHandle()
+    {
         for (int i = 0; i < numberKeys.Count; i++)
         {
             if (weapons[i] != null && Input.GetKeyDown(numberKeys[i]))
@@ -64,43 +104,8 @@ public class Player : Actor
             }
         }
     }
-
-    public override void SwitchWeapon(int weaponIndex)
+    void Catch()
     {
-        base.SwitchWeapon(weaponIndex);
-
-        for (int i = 0; i < myAim.childCount; i++)
-            myAim.GetChild(i).gameObject.SetActive(false);
-        weapons[weaponIndex].gameObject.SetActive(true);
-        currentWeapon = weapons[weaponIndex];
-        currentWeaponType = currentWeapon.weaponType;
-    }
-
-    public override void FixedUpdate()
-    {
-        base.FixedUpdate();
-        Move();
-        Rotage();
-    }
-
-    void RifleShot() {
-        if (Input.GetMouseButton(0))
-        {
-            if (currentWeapon.Shot(angle, 7))
-                myAnim.SetTrigger("Shot");
-        }
-    }
-
-    void PistolAndShortGunShot()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (currentWeapon.Shot(angle, 7))
-                myAnim.SetTrigger("Shot");
-        }
-    }
-
-    void Catch() {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         GameObject created = Instantiate(catchGameobject, catchPointSpawn.position, Quaternion.identity);
         Catch createdCatch = created.GetComponent<Catch>();
@@ -108,7 +113,9 @@ public class Player : Actor
         createdCatch.target = mousePos;
         createdCatch.spawn = catchPointSpawn;
     }
+    #endregion
 
+    #region =======================Move===========================
     void Rotage() {
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -124,7 +131,36 @@ public class Player : Actor
             myBody.MovePosition(myBody.position + movement * property.speed * Time.deltaTime);
         }
     }
+    #endregion
 
+    #region ========================Weapon==========================
+    public override void SwitchWeapon(int weaponIndex)
+    {
+        base.SwitchWeapon(weaponIndex);
+
+        for (int i = 0; i < myAim.childCount; i++)
+            myAim.GetChild(i).gameObject.SetActive(false);
+        weapons[weaponIndex].gameObject.SetActive(true);
+        currentWeapon = weapons[weaponIndex];
+        currentWeaponType = currentWeapon.weaponType;
+    }
+    void RifleShot()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            if (currentWeapon.Shot(angle, 7))
+                myAnim.SetTrigger("Shot");
+        }
+    }
+
+    void PistolAndShortGunShot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (currentWeapon.Shot(angle, 7))
+                myAnim.SetTrigger("Shot");
+        }
+    }
     public override void ChangeWeapon(Weapon weapon)
     {
         base.ChangeWeapon(weapon);
@@ -138,9 +174,36 @@ public class Player : Actor
         weapon.transform.localPosition = new Vector3(0, 0, 0);
         weapon.transform.localRotation = Quaternion.identity;
     }
-
-    void ResetAllWeapon(int indexGunChange) {
+    void ResetAllWeapon(int indexGunChange)
+    {
         for (int i = 0; i < myAim.childCount; i++)
             myAim.GetChild(i).gameObject.SetActive(false);
     }
+    #endregion
+
+    #region ===================Property Change==============
+    void Oninit() {
+        OnChangeUI();
+    }
+    public override void OnChangeUI()
+    {
+        UI_PlayerManager.instance.OnChangePropertyOfPlayer();
+        UI_PlayerManager.instance.ChangeHP(ActorName, property.hpMax, property.hp);
+        UI_PlayerManager.instance.ChangeShield(ActorName, property.shieldMax, property.shield);
+    }
+    #endregion
+
+    #region============Using Item===================
+    int currentItemIndex = 0;
+    bool nowUsingItem;
+    void InceaseItemIndex() {
+        currentItemIndex++;
+        if (currentItemIndex >= items.Count)
+            currentItemIndex = 0;
+        nowUsingItem = true;
+    }
+    void UsingItem(ItemBase itemBase) {
+        itemBase.OnUse();
+    }
+    #endregion
 }

@@ -244,14 +244,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c3244259158044e9aed5445f222835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActorName: 
+  ActorName: GUNGGG
   property:
     hp: 100
     hpMax: 100
     stamina: 0
     speed: 10
     shield: 100
-    shieldMax: 0
+    shieldMax: 100
+  actorType: 0
   currentWeaponType: 0
   currentWeapon: {fileID: 0}
   weapons:
@@ -262,9 +263,9 @@ MonoBehaviour:
   - {fileID: 0}
   myBody: {fileID: 0}
   myAnim: {fileID: 0}
-  listLayerDamaged: 08000000
-  timeReUpHpSetting: 0
-  recovery_Ability: 0
+  listLayerDamaged: 080000000d000000
+  timeReUpHpSetting: 3
+  recovery_Ability: 20
   myAim: {fileID: 8940352509275026130}
   movement: {x: 0, y: 0}
   catchPointSpawn: {fileID: 8940352510168365862}

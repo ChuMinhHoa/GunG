@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum ActorType { Player, Enemy}
 public class Actor : MonoBehaviour
 {
 
@@ -10,6 +10,7 @@ public class Actor : MonoBehaviour
     [Header("=========ACTOR==========")]
     public string ActorName;
     public Property property;
+    public ActorType actorType;
 
     [Header("------WEAPON CONTROL-----")]
     [Space(20)]
@@ -48,13 +49,17 @@ public class Actor : MonoBehaviour
             if (timeReUpHp <= 0f)
             {
                 curveScale += Time.deltaTime;
-                ChangeHp(recovery_Ability * CurveAnimation.instance.list_Anim_Curves[0].animCurve.Evaluate(curveScale), false);
+                ChangeHp(
+                    recovery_Ability * CurveAnimation.instance.list_Anim_Curves[0].animCurve.Evaluate(curveScale),
+                    actorType == ActorType.Player ? true : false);
             }
         }
     }
 
     public virtual void ChangeHp(float damage, bool showPro) {
         property.hp += damage;
+        if (showPro)
+            OnChangeUI();
         if (property.hp > property.hpMax)
             property.hp = property.hpMax;
     }
@@ -67,14 +72,16 @@ public class Actor : MonoBehaviour
     public virtual void ChangeShield(float value, bool showPro) {
 
         property.shield += value;
-        if (property.shield <=0)
+        if (showPro)
+            OnChangeUI();
+        if (property.shield <=0 && value < 0)
         {
             property.shield = 0;
-            ChangeHp(value-property.shield, true);
+            ChangeHp(value , true);
             return;
         }
     }
-
+    public virtual void OnChangeUI() {}
     public virtual void ChangeWeapon(Weapon weapon) {
         currentWeapon = weapon;
         currentWeaponType = currentWeapon.weaponType;
