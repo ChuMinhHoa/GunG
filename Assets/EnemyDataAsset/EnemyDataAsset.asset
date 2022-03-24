@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b430ea079d08eea48aec05b7e08e967c, type: 3}
+  m_Name: EnemyDataAsset
+  m_EditorClassIdentifier: 
+  property:
+    hp: 100
+    hpMax: 100
+    stamina: 0
+    speed: 8
+    shield: 100
+    shieldMax: 100
+  actorType: 1
+  weapons:
+  - {fileID: 5402031691935211987, guid: ea956bfb98fd1cf40bb28206614afa34, type: 3}
+  - {fileID: 1504089166782501949, guid: c879cfef401fba243a8b63d0971cac14, type: 3}
+  listLayerDamaged: 070000000d000000
+  timeReUpHpSetting: 3
+  recovery_Ability: 3

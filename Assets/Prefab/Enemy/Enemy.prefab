@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 3313706375839674250}
   - component: {fileID: 3313706375839674251}
   - component: {fileID: 3313706375839674244}
+  - component: {fileID: 386297956}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -260,21 +261,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActorName: Enemy
   property:
-    hp: 100
-    hpMax: 100
+    hp: 0
+    hpMax: 0
     stamina: 0
-    speed: 4
-    shield: 100
-    shieldMax: 100
-  actorType: 1
+    speed: 0
+    shield: 0
+    shieldMax: 0
+  actorType: 0
   currentWeaponType: 0
   currentWeapon: {fileID: 0}
   weapons: []
   myBody: {fileID: 0}
   myAnim: {fileID: 0}
-  listLayerDamaged: 070000000d000000
-  timeReUpHpSetting: 3
-  recovery_Ability: 100
+  listLayerDamaged: 
+  timeReUpHpSetting: 0
+  recovery_Ability: 0
+  enemyDataAsset: {fileID: 11400000, guid: 8f204547025b392499f51e58fbb7045f, type: 2}
+--- !u!50 &386297956
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3313706375839674248}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3313706376145110163
 GameObject:
   m_ObjectHideFlags: 0
