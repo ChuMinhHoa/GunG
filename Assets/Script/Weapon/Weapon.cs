@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     public Weapon_Item weaponController;
 
     public bool changeOwner;
+    public List<int> layerOwner;
 
     public virtual void Start() {
         if (weaponController.icon != null)
@@ -19,29 +20,30 @@ public class Weapon : MonoBehaviour
         weaponType = weaponController.type;
     }
 
-    public virtual void ChangeOwner(Actor newOwner) {
-        owner = newOwner;
+    public virtual void ChangeOwner() {
+        if (owner != null)
+        {
+            owner.weapons.Remove(this);
+            owner.currentWeapon = null;
+            owner.SwitchWeapon(0);
+        }
+        
         changeOwner = true;
     }
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 10)
-            ChangeOwner(collision.GetComponent<Actor>());
+        if (layerOwner.IndexOf(collision.gameObject.layer) != -1 && owner == null)
+        {
+            Actor targetActor = collision.GetComponent<Actor>();
+            ChangeOwner();
+            owner = targetActor;
+            targetActor.ChangeWeapon(this);
+            changeOwner = false;
+        }
 
         if (!changeOwner)
             return;
-
-        if (collision.GetComponent<Actor>())
-        {
-            Actor targetActor = collision.GetComponent<Actor>();
-            if (targetActor == owner)
-            {
-                targetActor.ChangeWeapon(this);
-                changeOwner = false;
-            }
-           
-        }
     }
 
     public virtual bool Shot(float angle, int layerBullet) {

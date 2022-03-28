@@ -246,10 +246,11 @@ MonoBehaviour:
   weaponType: 2
   weaponController: {fileID: 11400000, guid: 652bb4b2cf239a44cb375679acded365, type: 2}
   changeOwner: 0
+  layerOwner: 0a0000000e000000
   bulletCount: 100
   shotPoint: {fileID: 1504089166345544246}
   bullet: {fileID: 4146927782037162154, guid: 7606df7c8fe6bd14e9e30fa2471f0db6, type: 3}
-  timeResetshotSetting: 0.05
+  timeResetshotSetting: 0.5
   type: 2
   recoil: 5
   intensity: 0.5

@@ -16,7 +16,7 @@ MonoBehaviour:
     hp: 100
     hpMax: 100
     stamina: 0
-    speed: 8
+    speed: 10
     shield: 100
     shieldMax: 100
   actorType: 1

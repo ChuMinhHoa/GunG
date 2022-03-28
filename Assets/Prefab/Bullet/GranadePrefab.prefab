@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8930092708490531198}
   - component: {fileID: 8212074668217425422}
   - component: {fileID: 1958974804178685374}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: GranadePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

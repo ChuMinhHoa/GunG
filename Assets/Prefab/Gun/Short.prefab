@@ -216,6 +216,7 @@ MonoBehaviour:
   weaponType: 2
   weaponController: {fileID: 11400000, guid: dfde86988a937964e9d5d43725ff8831, type: 2}
   changeOwner: 0
+  layerOwner: 0a0000000e000000
   bulletCount: 100
   shotPoint: {fileID: 5402031692408782095}
   bullet: {fileID: 2362978591343601836, guid: b04feb58a4525674780335c7343a2b80, type: 3}

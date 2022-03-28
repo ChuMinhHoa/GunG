@@ -92,10 +92,8 @@ public class Actor : MonoBehaviour
         weapons[weaponIndex] = currentWeapon;
         Destroy(weapon.GetComponent<Collider2D>());
     }
-
     public virtual void Move() { }
     public virtual void SwitchWeapon(int weaponIndex) { }
-        
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

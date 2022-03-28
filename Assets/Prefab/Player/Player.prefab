@@ -260,17 +260,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   myBody: {fileID: 0}
   myAnim: {fileID: 0}
   listLayerDamaged: 080000000d000000
   timeReUpHpSetting: 3
-  recovery_Ability: 20
+  recovery_Ability: 1
   myAim: {fileID: 8940352509275026130}
   movement: {x: 0, y: 0}
   catchPointSpawn: {fileID: 8940352510168365862}
   catchGameobject: {fileID: 8826069936846955884, guid: 50d8ef17783a086459881d2c9a1d0ba6, type: 3}
-  numberKeys: 3100000032000000330000003400000035000000
+  numberKeys: 31000000320000003300000034000000
+  items:
+  - {fileID: 0}
 --- !u!58 &8940352510114211498
 CircleCollider2D:
   m_ObjectHideFlags: 0

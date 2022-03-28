@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : EnemyBase
 {
-   
+    public float currentAngle;
     public override void Awake()
     {
         base.Awake();
@@ -14,7 +14,6 @@ public class Enemy : EnemyBase
         base.Start();
         OnInit();
     }
-
     public override void OnInit()
     {
         base.OnInit();
@@ -34,8 +33,12 @@ public class Enemy : EnemyBase
         playerOnView = CheckPLayerTarget();
         if (playerOnView && !followPLayer)
             StateMachine.ChangeState(EnemyThinking.Instance);
+        if (playerOnView)
+        {
+            Rotage();
+        }
     }
-    #region EnemyIdle;
+    #region EnemyIdle
     public override void EnemyIdleStart()
     {
         base.EnemyIdleStart();
@@ -74,32 +77,33 @@ public class Enemy : EnemyBase
         base.EnemyMoveExecute();
         if (!nearTarget)
         {
-            //Attack
-            Vector2 movement = (target - transform.position).normalized;
-            myBody.MovePosition(myBody.position + movement * property.speed * Time.deltaTime);
-            
-            if (CheckDistanceToStop())
-            {
-                nearTarget = true;
-                if (playerOnView)
-                {
-                    canAttack = true;
-                    StateMachine.ChangeState(EnemyThinking.Instance);
-                    return;
-                }
-                StateMachine.ChangeState(EnemyIdle.Instance);
-                return;
-            }
+            Move();
+            Rotage();
         }
+        else
+            StateMachine.ChangeState(EnemyIdle.Instance);
     }
     public override void EnemyMoveEnd()
     {
         base.EnemyMoveEnd();
     }
+
+    public override void Move() {
+        Vector2 direction = (target - transform.position).normalized;
+        myBody.MovePosition(myBody.position + direction * property.speed * Time.deltaTime);
+
+        if (CheckDistanceToStop())
+            nearTarget = true;
+    }
+    void Rotage() {
+        Vector2 direction = target - transform.position;
+        currentAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0, 0, currentAngle);
+    }
     #endregion
 
     #region EnemyThinking
-    
+
     public override void EnemyThinkStart()
     {
         base.EnemyThinkStart();
@@ -109,6 +113,13 @@ public class Enemy : EnemyBase
     public override void EnemyThinkExecute()
     {
         base.EnemyThinkExecute();
+        Thinking();
+    }
+    public override void EnemyThinkEnd()
+    {
+        base.EnemyThinkEnd();
+    }
+    public virtual void Thinking() {
         if (!CheckDistanceToStop())
         {
             followPLayer = false;
@@ -116,15 +127,15 @@ public class Enemy : EnemyBase
 
         if (playerOnView && !followPLayer)
         {
-            Debug.Log("Player OnView");
             StateMachine.ChangeState(EnemyMove.Instance);
             followPLayer = true;
             return;
         }
 
+        canAttack = CheckCanAttack();
         if (canAttack)
         {
-            Debug.Log("Attack");
+            StateMachine.ChangeState(EnemyAttack.Instance);
             return;
         }
 
@@ -139,6 +150,8 @@ public class Enemy : EnemyBase
                     StateMachine.ChangeState(EnemyIdle.Instance);
                     break;
                 case 1:
+                    target = RandomPosition();
+                    distanceToStop = .1f;
                     StateMachine.ChangeState(EnemyMove.Instance);
                     break;
                 default:
@@ -146,9 +159,26 @@ public class Enemy : EnemyBase
             }
         }
     }
-    public override void EnemyThinkEnd()
+    #endregion
+
+    #region EnemyAttack
+    public override void EnemyAttackStart()
     {
-        base.EnemyThinkEnd();
+        base.EnemyAttackStart();
+    }
+    public override void EnemyAttackExecute()
+    {
+        base.EnemyAttackExecute();
+        canAttack = CheckCanAttack();
+        if (currentWeapon != null && canAttack)
+        {
+            currentWeapon.Shot(currentAngle, 12);
+        }
+        else StateMachine.ChangeState(EnemyThinking.Instance);
+    }
+    public override void EnemyAttackEnd()
+    {
+        base.EnemyAttackEnd();
     }
     #endregion
 }
@@ -231,5 +261,32 @@ public class EnemyThinking : State<EnemyBase>
     public override void End(EnemyBase go)
     {
         go.EnemyThinkEnd();
+    }
+}
+public class EnemyAttack : State<EnemyBase>
+{
+    private static EnemyAttack m_Instance = null;
+    public static EnemyAttack Instance
+    {
+        get
+        {
+            if (m_Instance == null)
+            {
+                m_Instance = new EnemyAttack();
+            }
+            return m_Instance;
+        }
+    }
+    public override void Enter(EnemyBase go)
+    {
+        go.EnemyAttackStart();
+    }
+    public override void Execute(EnemyBase go)
+    {
+        go.EnemyAttackExecute();
+    }
+    public override void End(EnemyBase go)
+    {
+        go.EnemyAttackEnd();
     }
 }
