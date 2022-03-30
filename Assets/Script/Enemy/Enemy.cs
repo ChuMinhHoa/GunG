@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : EnemyBase
 {
     public float currentAngle;
+    public List<LayerMask> whatIsWeapons;
     public override void Awake()
     {
         base.Awake();
@@ -49,13 +50,8 @@ public class Enemy : EnemyBase
     public override void EnemyIdleExecute()
     {
         base.EnemyIdleExecute();
-        if (timeDecision > 0f && minusTimeDecision)
-        {
-            timeDecision -= Time.deltaTime;
-        }
-
-        if (timeDecision <= 0f)
-            StateMachine.ChangeState(EnemyThinking.Instance);
+        
+        StateMachine.ChangeState(EnemyThinking.Instance);
     }
     public override void EnemyIdleEnd()
     {
@@ -63,7 +59,7 @@ public class Enemy : EnemyBase
     }
     #endregion
 
-    #region ===================ENEMY MOVE=================
+    #region ENEMY MOVE
     bool nearTarget;
     public override void EnemyMoveStart()
     {
@@ -103,7 +99,6 @@ public class Enemy : EnemyBase
     #endregion
 
     #region EnemyThinking
-
     public override void EnemyThinkStart()
     {
         base.EnemyThinkStart();
@@ -119,11 +114,24 @@ public class Enemy : EnemyBase
     {
         base.EnemyThinkEnd();
     }
-    public virtual void Thinking() {
-        if (!CheckDistanceToStop())
+    public virtual bool MinusTime() {
+
+        if (timeDecision > 0f && minusTimeDecision)
         {
-            followPLayer = false;
+            timeDecision -= Time.deltaTime;
+            return true;
         }
+        return false;
+    }
+    public virtual void Thinking() {
+
+        if (weapons.Count == 0)
+        {
+            StateMachine.ChangeState(EnemyFindWeapon.Instance);
+            return;
+        }
+        if (!CheckDistanceToStop())
+            followPLayer = false;
 
         if (playerOnView && !followPLayer)
         {
@@ -139,6 +147,12 @@ public class Enemy : EnemyBase
             return;
         }
 
+        if (MinusTime())
+            return;
+        MakeDecision();
+    }
+
+    public virtual void MakeDecision() {
         if (timeDecision <= 0f)
         {
             int randomDecision = Random.Range(0, 2);
@@ -179,6 +193,30 @@ public class Enemy : EnemyBase
     public override void EnemyAttackEnd()
     {
         base.EnemyAttackEnd();
+    }
+    #endregion
+
+    #region Enemy Find Weapon
+    public List<Transform> weaponsFinded;
+    public override void EnemyFindWeaponStart()
+    {
+        base.EnemyFindWeaponStart();
+        Debug.Log("Enemy finding!");
+        FindWeapons();
+    }
+    public override void EnemyFindWeaponExecute()
+    {
+        base.EnemyFindWeaponExecute();
+        if (weaponsFinded.Count > 0)
+            target = weaponsFinded[Random.Range(0, weaponsFinded.Count)].position;
+        StateMachine.ChangeState(EnemyMove.Instance);
+    }
+    public override void EnemyFindWeaponEnd()
+    {
+        base.EnemyFindWeaponEnd();
+    }
+    public virtual void FindWeapons() { 
+    
     }
     #endregion
 }
@@ -288,5 +326,32 @@ public class EnemyAttack : State<EnemyBase>
     public override void End(EnemyBase go)
     {
         go.EnemyAttackEnd();
+    }
+}
+public class EnemyFindWeapon : State<EnemyBase>
+{
+    private static EnemyFindWeapon m_Instance = null;
+    public static EnemyFindWeapon Instance
+    {
+        get
+        {
+            if (m_Instance == null)
+            {
+                m_Instance = new EnemyFindWeapon();
+            }
+            return m_Instance;
+        }
+    }
+    public override void Enter(EnemyBase go)
+    {
+        go.EnemyFindWeaponStart();
+    }
+    public override void Execute(EnemyBase go)
+    {
+        go.EnemyFindWeaponExecute();
+    }
+    public override void End(EnemyBase go)
+    {
+        go.EnemyFindWeaponEnd();
     }
 }

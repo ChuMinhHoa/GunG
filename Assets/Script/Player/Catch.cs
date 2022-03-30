@@ -55,6 +55,7 @@ public class Catch : MonoBehaviour
         if (hit != null)
         {
             target = spawn.position;
+            hit.GetComponent<Weapon>().ChangeOwner();
             hit.transform.SetParent(endP.transform);
         }
     }

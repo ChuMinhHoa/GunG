@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
             owner.currentWeapon = null;
             owner.SwitchWeapon(0);
         }
-        
+        owner = null;
         changeOwner = true;
     }
 

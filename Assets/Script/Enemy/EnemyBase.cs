@@ -115,6 +115,11 @@ public class EnemyBase : Actor
     public virtual void EnemyAttackExecute() { }
     public virtual void EnemyAttackEnd() { }
     #endregion
+    #region EnemyFindWeapon
+    public virtual void EnemyFindWeaponStart() { }
+    public virtual void EnemyFindWeaponExecute() { }
+    public virtual void EnemyFindWeaponEnd() { }
+    #endregion
 
     #region=============Check Player====================
     public float radius_Check_Player;

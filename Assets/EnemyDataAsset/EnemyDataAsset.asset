@@ -20,9 +20,7 @@ MonoBehaviour:
     shield: 100
     shieldMax: 100
   actorType: 1
-  weapons:
-  - {fileID: 5402031691935211987, guid: ea956bfb98fd1cf40bb28206614afa34, type: 3}
-  - {fileID: 1504089166782501949, guid: c879cfef401fba243a8b63d0971cac14, type: 3}
+  weapons: []
   listLayerDamaged: 070000000d000000
   timeReUpHpSetting: 3
   recovery_Ability: 3
